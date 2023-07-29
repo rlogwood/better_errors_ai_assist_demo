@@ -3,7 +3,7 @@ require "json"
 require "securerandom"
 require "rouge"
 require "better_errors/error_page_style"
-
+require 'pycall'
 
 module BetterErrors
   # @private
@@ -194,14 +194,33 @@ module BetterErrors
       return context
     end
 
-    public def ai_assistance
-      #require 'pycall'
-      #PyCall.sys.path.append('.')
-      #py_module = PyCall.import_module('chat_gpt_help')
-      #context = "File hello.rb not found"
-      #answer = py_module.ask_chat_gpt(context)
 
-      "please give me an ai answer"
+
+    public def ai_assistance
+      chatOpenAI = PyCall.import_module("langchain.chat_models").ChatOpenAI
+      aIMessage = PyCall.import_module("langchain.schema").AIMessage
+      humanMessage = PyCall.import_module("langchain.schema").HumanMessage
+      systemMessage = PyCall.import_module("langchain.schema").SystemMessage
+
+      raise Exception.new("OPENAI_API_KEY not defined in environment") unless ENV['OPENAI_API_KEY']
+
+      llm = chatOpenAI.new(temperature: 0,
+                           model_name: "gpt-3.5-turbo",
+                           openai_api_key: ENV['OPENAI_API_KEY'])
+
+      default_task =<<~TASK
+          You are to look for the errors in the given code and respond back with a brief but
+          self explanatory correction or the errors in ruby or rails
+      TASK
+      
+      messages = [
+        systemMessage.new(content: default_task),
+        humanMessage.new(content: chat_gpt_prompt)
+      ]
+
+      answer = llm.call(messages)
+      Rails.logger.info("chat gpt answer:\n#{answer.content}")
+      answer.content
     end
 
   end
