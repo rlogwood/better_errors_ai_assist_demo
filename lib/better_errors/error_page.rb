@@ -4,6 +4,7 @@ require "securerandom"
 require "rouge"
 require "better_errors/error_page_style"
 
+
 module BetterErrors
   # @private
   class ErrorPage
@@ -165,5 +166,43 @@ module BetterErrors
         result:            result
       }
     end
+
+    private def chat_gpt_context_stacktrace
+      stack_trace = ""
+      application_frames.each_with_index do |frame, index|
+        stack_trace += "#{index}: context:#{frame.context} #{frame.class_name}#{frame.method_name} file: #{frame.pretty_path} on line #{frame.line}\n"
+      end
+      stack_trace
+    end
+
+
+    private def chat_gpt_prompt
+      context = <<~CONTEXT
+         Rails Execption Type: #{exception_type} at #{request_path}
+
+         Rails Execption Message: #{exception_message}
+
+         Rails Exception Hint: #{exception_hint}
+
+         Source Code Error Context:
+         #{ErrorPage.text_formatted_code_block application_frames[0]}
+
+         Stack Trace:
+         #{chat_gpt_context_stacktrace}
+      CONTEXT
+      Rails.logger.info("chat gpt context:\n#{context}")
+      return context
+    end
+
+    public def ai_assistance
+      #require 'pycall'
+      #PyCall.sys.path.append('.')
+      #py_module = PyCall.import_module('chat_gpt_help')
+      #context = "File hello.rb not found"
+      #answer = py_module.ask_chat_gpt(context)
+
+      "please give me an ai answer"
+    end
+
   end
 end
