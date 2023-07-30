@@ -71,7 +71,7 @@ module BetterErrors
     end
 
     def do_chatgpt(opts)
-      {response: "something"}
+      {response: ai_assistance}
     end
 
     def backtrace_frames
@@ -195,8 +195,7 @@ module BetterErrors
          #{chat_gpt_context_stacktrace}
       CONTEXT
       Rails.logger.info("chat gpt context:\n#{context}")
-      # return context
-      return "i am having an issue with ruby on rails."
+      context
     end
 
 

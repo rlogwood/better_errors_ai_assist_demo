@@ -81,6 +81,10 @@
 
     <section class="backtrace">
         <nav class="sidebar">
+          <div class="ai_assistance">
+            ..looking for more info...
+          </div>
+
             <nav class="tabs">
                 <a href="#" id="application_frames">Application Frames</a>
                 <a href="#" id="all_frames">All Frames</a>
@@ -101,9 +105,6 @@
                     </li>
                 <% end %>
             </ul>
-    <div class="assistanceInfo" style="background-color: darkslategrey">
-       <%#= ai_assistance %>
-    </div>
         </nav>
 
         <div class="frameInfos">
@@ -153,11 +154,11 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        var chatgptPrompt = "<%= chat_gpt_prompt %>";
-        var aiSection = document.querySelector('.assistanceInfo')
-        apiCall("chatgpt", { "index": chatgptPrompt}, function(response) {
+        var aiSection = document.querySelector('.ai_assistance')
+        apiCall("chatgpt", { }, function(response) {
             if(response.error) {
-                self.writeOutput(response.error + "\n");
+                console.log(response.error)
+                aiSection.innerHTML = "AI assistance not available for this error"
             } else {
                 aiSection.innerHTML = response.response;
             }
