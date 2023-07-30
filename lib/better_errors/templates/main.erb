@@ -101,8 +101,8 @@
                     </li>
                 <% end %>
             </ul>
-    <div style="background-color: darkslategrey">
-       <%= ai_assistance %>
+    <div class="assistanceInfo" style="background-color: darkslategrey">
+       <%#= ai_assistance %>
     </div>
         </nav>
 
@@ -151,6 +151,18 @@
             }
         };
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var chatgptPrompt = "<%= chat_gpt_prompt %>";
+        var aiSection = document.querySelector('.assistanceInfo')
+        apiCall("chatgpt", { "index": chatgptPrompt}, function(response) {
+            if(response.error) {
+                self.writeOutput(response.error + "\n");
+            } else {
+                aiSection.innerHTML = response.response;
+            }
+        });
+    });
 
     function escapeHTML(html) {
         return html.replace(/&/, "&amp;").replace(/</g, "&lt;");

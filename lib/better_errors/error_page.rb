@@ -70,6 +70,10 @@ module BetterErrors
       eval_and_respond(index, code)
     end
 
+    def do_chatgpt(opts)
+      {response: "something"}
+    end
+
     def backtrace_frames
       exception.backtrace
     end
@@ -176,7 +180,7 @@ module BetterErrors
     end
 
 
-    private def chat_gpt_prompt
+    def chat_gpt_prompt
       context = <<~CONTEXT
          Rails Execption Type: #{exception_type} at #{request_path}
 
@@ -191,7 +195,8 @@ module BetterErrors
          #{chat_gpt_context_stacktrace}
       CONTEXT
       Rails.logger.info("chat gpt context:\n#{context}")
-      return context
+      # return context
+      return "i am having an issue with ruby on rails."
     end
 
 
