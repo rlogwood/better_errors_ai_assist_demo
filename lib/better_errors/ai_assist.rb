@@ -102,8 +102,7 @@ module BetterErrors
 
       renderer = ::Redcarpet::Render::HTML.new(options = {})
       markdown = ::Redcarpet::Markdown.new(renderer, extensions = {})
-      Rails.logger.info(md_text)
-      markdown.render(md_text)
+      markdown.render(md_text).html_safe
     end
   end
 end
