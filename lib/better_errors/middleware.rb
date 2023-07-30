@@ -162,7 +162,7 @@ module BetterErrors
     end
 
     def internal_call(env, id, method)
-      return not_found_json_response unless %w[variables eval chatgpt].include?(method)
+      return not_found_json_response unless %w[variables eval ai_assist].include?(method)
       return no_errors_json_response unless @error_page
       return invalid_error_json_response if id != @error_page.id
 

@@ -83,7 +83,7 @@
         <nav class="sidebar">
             <% if ENV['OPENAI_API_KEY'].present? %>
               <div class="ai-assistance">
-                ..looking for more info...
+                <div class="ai-working pulse-text-color">* AI Assist is working *</div>
               </div>
             <% end %>
 
@@ -158,7 +158,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         var aiSection = document.querySelector('.ai-assistance');
         if(aiSection) {
-            apiCall("chatgpt", {}, function(response) {
+            apiCall("ai_assist", {}, function(response) {
                 if(response.error) {
                     console.log(response.error);
                     aiSection.innerHTML = "AI assistance not available for this error";

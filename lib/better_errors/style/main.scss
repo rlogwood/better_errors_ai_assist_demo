@@ -745,7 +745,47 @@ nav.sidebar:hover::-webkit-scrollbar-thumb {
     background: #888;
 }
 
+
+$base-color: slategray;
+$base-color-light: lighten($base-color, 20%);
+
+.pulse-text-color {
+    -webkit-animation: color_change 1s infinite alternate;
+    -moz-animation: color_change 1s infinite alternate;
+    -ms-animation: color_change 1s infinite alternate;
+    -o-animation: color_change 1s infinite alternate;
+    animation: color_change 1s infinite alternate;
+}
+
+@-webkit-keyframes color_change {
+    from { color: $base-color; }
+    to { color: $base-color-light; }
+}
+@-moz-keyframes color_change {
+    from { color: $base-color; }
+    to { color: $base-color-light; }
+}
+@-ms-keyframes color_change {
+    from { color: $base-color; }
+    to { color: $base-color-light; }
+}
+@-o-keyframes color_change {
+    from { color: $base-color; }
+    to { color: $base-color-light; }
+}
+@keyframes color_change {
+    from { color: $base-color; }
+    to { color: $base-color-light; }
+}
+
 .ai-assistance {
-    padding: 3px;
+    padding: 5px;
     background-color: darkslategrey;
+
+    .ai-working {
+        padding: 5px;
+        color: slategray;
+        text-align: center;
+        vertical-align: middle;
+    }
 }
