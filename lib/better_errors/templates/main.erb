@@ -81,9 +81,11 @@
 
     <section class="backtrace">
         <nav class="sidebar">
-          <div class="ai-assistance">
-            ..looking for more info...
-          </div>
+            <% if ENV['OPENAI_API_KEY'].present? %>
+              <div class="ai-assistance">
+                ..looking for more info...
+              </div>
+            <% end %>
 
             <nav class="tabs">
                 <a href="#" id="application_frames">Application Frames</a>
@@ -154,15 +156,17 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        var aiSection = document.querySelector('.ai-assistance')
-        apiCall("chatgpt", { }, function(response) {
-            if(response.error) {
-                console.log(response.error)
-                aiSection.innerHTML = "AI assistance not available for this error"
-            } else {
-                aiSection.innerHTML = response.response;
-            }
-        });
+        var aiSection = document.querySelector('.ai-assistance');
+        if(aiSection) {
+            apiCall("chatgpt", {}, function(response) {
+                if(response.error) {
+                    console.log(response.error);
+                    aiSection.innerHTML = "AI assistance not available for this error";
+                } else {
+                    aiSection.innerHTML = response.response;
+                }
+            });
+        }
     });
 
     function escapeHTML(html) {
