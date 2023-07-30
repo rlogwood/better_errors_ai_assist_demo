@@ -3,6 +3,7 @@ require 'pycall'
 
 module BetterErrors
   module AiAssist
+    DEFAULT_AI_ASSIST_METHOD = :ai_assistance_chatgpt_only.freeze
 
     private def ai_assist_context_stacktrace
       stack_trace = ""
@@ -30,7 +31,11 @@ module BetterErrors
       context
     end
 
-    public def ai_assistance
+    private def ai_assist_method
+      @ai_assist_method || DEFAULT_AI_ASSIST_METHOD
+    end
+
+    public def ai_assistance_chatgpt_only
       chatOpenAI = PyCall.import_module("langchain.chat_models").ChatOpenAI
       aIMessage = PyCall.import_module("langchain.schema").AIMessage
       humanMessage = PyCall.import_module("langchain.schema").HumanMessage
@@ -61,5 +66,18 @@ module BetterErrors
       answer.content
     end
 
+    public def ai_assistance_google_and_chatgpt
+      "google and chat gpt not implemented yet"
+    end
+
+    public def config_ai_assist(ai_assist_method)
+      @ai_assist_method = ai_assist_method.freeze
+    end
+
+    public def ai_assistance
+      #config_ai_assist("ai_assistance_google_and_chatgpt")
+      Rails.logger.info("ai_assistance called: ai method:#{ai_assist_method}")
+      self.public_send(ai_assist_method)
+    end
   end
 end
