@@ -52,7 +52,7 @@ module BetterErrors
       default_task = <<~TASK
         You are to look for the errors in the given code and respond back with a brief but
         self explanatory correction or the errors in ruby or rails. Put this into a readable 
-        markdown string format with sections for issue and solution.
+        markdown string format with sections for issue and solution. Take note that if the string includes a symbol like :some_symbol, wrap this in backticks for inline markdown.
       TASK
 
       default_task_plus_example = <<~TASK
