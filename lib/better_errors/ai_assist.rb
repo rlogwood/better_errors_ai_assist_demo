@@ -12,7 +12,7 @@ module BetterErrors
       stack_trace
     end
 
-    def chat_gpt_prompt
+    private def chat_gpt_prompt
       context = <<~CONTEXT
         Rails Execption Type: #{exception_type} at #{request_path}
 
