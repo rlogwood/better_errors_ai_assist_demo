@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 require 'pycall'
+require 'redcarpet'
+
 
 module BetterErrors
   module AiAssist
@@ -49,7 +51,8 @@ module BetterErrors
 
       default_task = <<~TASK
         You are to look for the errors in the given code and respond back with a brief but
-        self explanatory correction or the errors in ruby or rails.
+        self explanatory correction or the errors in ruby or rails. Put this into a readable 
+        markdown string format with sections for issue and solution.
       TASK
 
       default_task_plus_example = <<~TASK
@@ -76,8 +79,30 @@ module BetterErrors
 
     public def ai_assistance
       #config_ai_assist("ai_assistance_google_and_chatgpt")
-      Rails.logger.info("ai_assistance called: ai method:#{ai_assist_method}")
-      self.public_send(ai_assist_method)
+      logger = Rails.logger
+      logger.info("ai_assistance called: ai method:#{ai_assist_method}")
+
+      str = self.public_send(ai_assist_method)
+      format_markdown(str)
+    end
+
+    private def format_markdown(md_text)
+      options = {
+        filter_html:     true,
+        hard_wrap:       true,
+        link_attributes: { rel: 'nofollow', target: "_blank" },
+        space_after_headers: true,
+        fenced_code_blocks: true
+      }
+      extensions = {
+        autolink:           true,
+        superscript:        true,
+        disable_indented_code_blocks: true
+      }
+
+      renderer = ::Redcarpet::Render::HTML.new(options = {})
+      markdown = ::Redcarpet::Markdown.new(renderer, extensions = {})
+      markdown.render(md_text).html_safe
     end
   end
 end
