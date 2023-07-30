@@ -161,7 +161,7 @@
             apiCall("ai_assist", {}, function(response) {
                 if(response.error) {
                     console.log(response.error);
-                    aiSection.innerHTML = "AI assistance not available for this error";
+                    aiSection.innerHTML = "* Sorry, AI assistance is not currently available for this error, please try refreshing the page.";
                 } else {
                     aiSection.innerHTML = response.response;
                 }
