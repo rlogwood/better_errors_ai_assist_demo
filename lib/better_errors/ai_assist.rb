@@ -14,9 +14,9 @@ module BetterErrors
 
     private def chat_gpt_prompt
       context = <<~CONTEXT
-        Rails Execption Type: #{exception_type} at #{request_path}
+        Rails Exception Type: #{exception_type} at #{request_path}
 
-        Rails Execption Message: #{exception_message}
+        Rails Exception Message: #{exception_message}
 
         Rails Exception Hint: #{exception_hint}
 
