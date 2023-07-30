@@ -9,6 +9,3 @@ gem 'simplecov-lcov', require: false
 gem 'gem-release'
 
 # gem "pry-byebug"
-
-gem "pycall", "~> 1.4"
-gem "redcarpet"
