@@ -33,6 +33,8 @@ Gem::Specification.new do |s|
   s.add_dependency "erubi", ">= 1.0.0"
   s.add_dependency "rouge", ">= 1.0.0"
   s.add_dependency "rack", ">= 0.9.0"
+  s.add_dependency "pycall", "~> 1.4"
+  s.add_dependency "redcarpet"
 
   # optional dependencies:
   # s.add_dependency "binding_of_caller"
