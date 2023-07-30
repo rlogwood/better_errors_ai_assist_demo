@@ -214,7 +214,8 @@ module BetterErrors
 
       default_task =<<~TASK
           You are to look for the errors in the given code and respond back with a brief but
-          self explanatory correction or the errors in ruby or rails
+          self explanatory correction or the errors in ruby or rails. Please show a working example in 
+          ruby or rails.
       TASK
       
       messages = [

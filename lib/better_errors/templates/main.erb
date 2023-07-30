@@ -82,7 +82,7 @@
     <section class="backtrace">
         <nav class="sidebar">
             <% if ENV['OPENAI_API_KEY'].present? %>
-              <div class="ai_assistance">
+              <div class="ai-assistance">
                 ..looking for more info...
               </div>
             <% end %>
@@ -156,7 +156,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        var aiSection = document.querySelector('.ai_assistance');
+        var aiSection = document.querySelector('.ai-assistance');
         if(aiSection) {
             apiCall("chatgpt", {}, function(response) {
                 if(response.error) {
@@ -167,7 +167,6 @@
                 }
             });
         }
-
     });
 
     function escapeHTML(html) {
