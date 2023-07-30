@@ -81,7 +81,7 @@
 
     <section class="backtrace">
         <nav class="sidebar">
-          <div class="ai_assistance">
+          <div class="ai-assistance">
             ..looking for more info...
           </div>
 
@@ -154,7 +154,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        var aiSection = document.querySelector('.ai_assistance')
+        var aiSection = document.querySelector('.ai-assistance')
         apiCall("chatgpt", { }, function(response) {
             if(response.error) {
                 console.log(response.error)
