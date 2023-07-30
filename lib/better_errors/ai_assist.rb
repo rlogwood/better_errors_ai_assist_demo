@@ -53,6 +53,7 @@ module BetterErrors
         You are to look for the errors in the given code and respond back with a brief but
         self explanatory correction or the errors in ruby or rails. Put this into a readable 
         markdown string format with sections for issue and solution. Take note that if the string includes a symbol like :some_symbol, wrap this in backticks for inline markdown.
+        If there is a code snippet wrap it in triple backticks and append 3 new line before.
       TASK
 
       default_task_plus_example = <<~TASK
@@ -97,12 +98,13 @@ module BetterErrors
       extensions = {
         autolink:           true,
         superscript:        true,
-        disable_indented_code_blocks: true
+        disable_indented_code_blocks: false
       }
 
       renderer = ::Redcarpet::Render::HTML.new(options = {})
       markdown = ::Redcarpet::Markdown.new(renderer, extensions = {})
-      markdown.render(md_text).html_safe
+      Rails.logger.info(md_text)
+      markdown.render(md_text)
     end
   end
 end
