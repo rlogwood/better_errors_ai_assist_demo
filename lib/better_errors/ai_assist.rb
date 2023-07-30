@@ -97,7 +97,7 @@ module BetterErrors
       extensions = {
         autolink:           true,
         superscript:        true,
-        disable_indented_code_blocks: true
+        disable_indented_code_blocks: false
       }
 
       renderer = ::Redcarpet::Render::HTML.new(options = {})
