@@ -53,7 +53,6 @@ module BetterErrors
         You are to look for the errors in the given code and respond back with a brief but
         self explanatory correction or the errors in ruby or rails. Put this into a readable 
         markdown string format with sections for issue and solution. Take note that if the string includes a symbol like :some_symbol, wrap this in backticks for inline markdown.
-        If there is a code snippet wrap it in triple backticks and append 3 new line before.
       TASK
 
       default_task_plus_example = <<~TASK
