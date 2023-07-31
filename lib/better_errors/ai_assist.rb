@@ -95,7 +95,7 @@ module BetterErrors
     end
 
     def user_readable_error_msg(e)
-      idx = e.message.index("File")
+      idx = e.message.index("File") || e.message.length
       len = [MAX_ERROR_MESSAGE_LENGTH, idx].min
       short_error_msg = e.message[0...len]
       short_error_msg = short_error_msg.strip || short_error_msg
