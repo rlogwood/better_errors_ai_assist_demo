@@ -20,6 +20,71 @@ For screenshots of these features, [see the wiki](https://github.com/BetterError
 * Links directly to the source line in your editor
 * Useful information in non-HTML requests
 
+* * *
+
+:boom: Now with AI Assist :boom:
+
+> **Note**
+> This [fork](https://github.com/rlogwood/better_errors_ai_assist.git) adds **AI Assist**
+### Using the AI Assist [fork](https://github.com/rlogwood/better_errors_ai_assist.git) 
+
+*Adding AI assist to better_errors is easy*
+<details>
+  <summary>Instructions for using AI Assistance fork of better_errors </summary>
+
+#### 1. Create a OPENAI API KEY
+To use the AI Assist feature you'll need an [OPENAI API key](https://platform.openai.com/docs/quickstart/add-your-api-key).
+
+Define the `OPENAI_API_KEY` environment variable in your shell.
+
+> NOTE: If this environment variable is not defined the AI Assist feature will not be available.
+* * * 
+#### 2. Setup a Python environment on your development machine
+- After installing python `pip install openai`
+
+* * *
+#### 3. Add the forked gem to your Gemfile
+
+Update your Gemfile to reference the forked version of better_errors gem located
+at https://github.com/rlogwood/better_errors_ai_assist.git
+
+> NOTE: use the `ai_assist` branch of the repo (which is the default)
+
+#### Gemfile changes
+You can reference the forked gem locally by adding the following to your Gemfile:
+```ruby 
+gem "better_errors", path: File.expand_path('../better_errors_ai_assist', __dir__), :group => :development
+gem "binding_of_caller", "~> 1.0", :group => :development
+```
+Alternatively you can also reference the forked gem directly from github:
+```ruby
+gem 'better_errors', git: 'https://github.com/rlogwood/better_errors_ai_assist.git', :branch => 'ai_assist', group: :development
+````
+
+### Screenshot examples of the AI assisted error analysis
+
+<details>
+<summary>Example 1</summary>
+
+![Example 1](images/example1-ai-assist.png)
+</details>
+
+<details>
+<summary>Example 2</summary>
+
+![Example 1](images/example2-ai-assist-short.png)
+</details>
+
+>AI Assist added by 
+>[Andrew Casarsa](https://github.com/acasarsa), 
+>[Roman Khadka](https://github.com/romankhadka),
+>[Richard Logwood](https://github.com/rlogwood),
+>[Karandeep Singh](https://github.com/Kds888) 
+> during the 2023 Rails Hackathon [Rails Quest Team-163](https://railshackathon.com/entries/69)
+</details>
+
+* * *
+
 ## Installation
 
 Add this to your Gemfile:

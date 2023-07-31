@@ -155,7 +155,8 @@
         };
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    function callAiAssistAsync(event) {
+        //console.log("calling ai assist async for event:", event)
         var aiSection = document.querySelector('.ai-assistance');
         if(aiSection) {
             apiCall("ai_assist", {}, function(response) {
@@ -167,7 +168,15 @@
                 }
             });
         }
-    });
+    }
+
+    function setupAiAsyncEventListeners() {
+        ["DOMContentLoaded", "turbolinks:load", "turbo:render"].map(function(event) {
+            document.addEventListener(event, callAiAssistAsync)
+        })
+    }
+
+    setupAiAsyncEventListeners()
 
     function escapeHTML(html) {
         return html.replace(/&/, "&amp;").replace(/</g, "&lt;");
