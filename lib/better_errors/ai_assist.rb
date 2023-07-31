@@ -6,6 +6,7 @@ require 'redcarpet'
 module BetterErrors
   module AiAssist
     DEFAULT_AI_ASSIST_METHOD = :ai_assistance_chatgpt_only.freeze
+    MAX_ERROR_MESSAGE_LENGTH = 200.freeze
 
     private def ai_assist_context_stacktrace
       stack_trace = ""
@@ -79,11 +80,27 @@ module BetterErrors
 
     public def ai_assistance
       #config_ai_assist("ai_assistance_google_and_chatgpt")
-      logger = Rails.logger
-      logger.info("ai_assistance called: ai method:#{ai_assist_method}")
+      #Rails.logger.info("ai_assistance called: ai method:#{ai_assist_method}")
 
       str = self.public_send(ai_assist_method)
       format_markdown(str)
+
+    rescue Exception => e
+      short_error_msg = user_readable_error_msg(e)
+      #Rails.logger.info("ai_assistance exception: #{short_error_msg}")
+      <<~ERROR_MSG
+      * Sorry AI Assistance failed with error. Make sure your OPENAI_API_KEY environment variable is set correctly.
+      Error #{short_error_msg}
+      ERROR_MSG
+    end
+
+    def user_readable_error_msg(e)
+      idx = e.message.index("File")
+      len = [MAX_ERROR_MESSAGE_LENGTH, idx].min
+      short_error_msg = e.message[0...len]
+      short_error_msg = short_error_msg.strip || short_error_msg
+      short_error_msg += "..." unless short_error_msg.length < MAX_ERROR_MESSAGE_LENGTH
+      short_error_msg
     end
 
     private def format_markdown(md_text)
