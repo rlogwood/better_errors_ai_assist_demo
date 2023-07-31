@@ -155,8 +155,7 @@
         };
     }
 
-    function callAiAssistAsync(event) {
-        //console.log("calling ai assist async for event:", event)
+    function callAiAssistAsync() {
         var aiSection = document.querySelector('.ai-assistance');
         if(aiSection) {
             apiCall("ai_assist", {}, function(response) {
@@ -170,13 +169,7 @@
         }
     }
 
-    function setupAiAsyncEventListeners() {
-        ["DOMContentLoaded", "turbolinks:load", "turbo:render"].map(function(event) {
-            document.addEventListener(event, callAiAssistAsync)
-        })
-    }
-
-    setupAiAsyncEventListeners()
+    callAiAssistAsync();
 
     function escapeHTML(html) {
         return html.replace(/&/, "&amp;").replace(/</g, "&lt;");
