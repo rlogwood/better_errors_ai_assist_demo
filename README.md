@@ -32,16 +32,32 @@ For screenshots of these features, [see the wiki](https://github.com/BetterError
 <details>
   <summary>Instructions for using AI Assistance fork of better_errors </summary>
 
-#### 1. Create a OPENAI API KEY
-To use the AI Assist feature you'll need an [OPENAI API key](https://platform.openai.com/docs/quickstart/add-your-api-key).
+> **NOTE**
+> - Currently requires *Rails session* to store OpenAI API key
+> - Other environments may be supported in the future.
 
-Define the `OPENAI_API_KEY` environment variable in your shell.
+#### 1. Create a OpenAI API KEY
+To use the AI Assist feature you'll need an [OpenAI API key](https://platform.openai.com/docs/quickstart/add-your-api-key).
 
-> NOTE: If this environment variable is not defined the AI Assist feature will not be available.
+Use the **Rails** `session` hash to store the OpenAI API key. 
+The following code snippet shows how to initialize the key 
+in the `session` from the environment.
+```ruby
+    session['openai_api_key'] = ENV['OPENAI_API_KEY']
+```
+
+> **NOTE**
+> If the OpenAI API key is not set in the session the AI Assist feature will not be available.
+>
+
 * * * 
-#### 2. Setup a Python environment on your development machine
-- After installing python `pip install openai`
 
+#### 2. Setup a Python environment on your development machine
+- After installing python make sure that the langchain and openai packages are installed:
+```sh
+    pip install langchain
+    pip install openai
+```
 * * *
 #### 3. Add the forked gem to your Gemfile
 

@@ -30,7 +30,6 @@ module BetterErrors
         Stack Trace:
         #{ai_assist_context_stacktrace}
       CONTEXT
-      # Rails.logger.info("chat gpt context:\n#{context}")
       context
     end
 
@@ -44,11 +43,11 @@ module BetterErrors
       humanMessage = PyCall.import_module("langchain.schema").HumanMessage
       systemMessage = PyCall.import_module("langchain.schema").SystemMessage
 
-      raise Exception.new("OPENAI_API_KEY not defined in environment") unless ENV['OPENAI_API_KEY']
+      raise Exception.new("OPEN AI API KEY not found") unless session_openai_api_key
 
       llm = chatOpenAI.new(temperature: 0,
                            model_name: "gpt-3.5-turbo",
-                           openai_api_key: ENV['OPENAI_API_KEY'])
+                           openai_api_key: session_openai_api_key)
 
       default_task = <<~TASK
         You are to look for the errors in the given code and respond back with a brief but
@@ -66,7 +65,6 @@ module BetterErrors
       ]
 
       answer = llm.call(messages)
-      # Rails.logger.info("chat gpt answer:\n#{answer.content}")
       answer.content
     end
 
@@ -80,16 +78,15 @@ module BetterErrors
 
     public def ai_assistance
       #config_ai_assist("ai_assistance_google_and_chatgpt")
-      #Rails.logger.info("ai_assistance called: ai method:#{ai_assist_method}")
 
       str = self.public_send(ai_assist_method)
       format_markdown(str)
 
     rescue Exception => e
       short_error_msg = user_readable_error_msg(e)
-      #Rails.logger.info("ai_assistance exception: #{short_error_msg}")
+
       <<~ERROR_MSG
-      * Sorry AI Assistance failed with error. Make sure your OPENAI_API_KEY environment variable is set correctly.
+      * Sorry AI Assistance failed with an error.
       Error #{short_error_msg}
       ERROR_MSG
     end

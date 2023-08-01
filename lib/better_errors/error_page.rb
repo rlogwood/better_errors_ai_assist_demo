@@ -42,8 +42,11 @@ module BetterErrors
       @id ||= SecureRandom.hex(8)
     end
 
+
+
     def render_main(csrf_token, csp_nonce)
       frame = backtrace_frames[0]
+      openai_api_key = session_openai_api_key
       first_frame_variable_info = VariableInfo.new(frame, editor_url(frame), rails_params, rack_session, Time.now.to_f)
       self.class.render_template('main', binding)
     end
@@ -120,6 +123,11 @@ module BetterErrors
 
     def rack_session
       env['rack.session']
+    end
+
+    def session_openai_api_key
+      session = env['action_dispatch.request.unsigned_session_cookie']
+      session.present? ? session['openai_api_key'] : nil
     end
 
     def rails_params
