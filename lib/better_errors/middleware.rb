@@ -66,10 +66,11 @@ module BetterErrors
   private
 
     def allow_ip?(env)
-      request = Rack::Request.new(env)
-      return true unless request.ip and !request.ip.strip.empty?
-      ip = IPAddr.new request.ip.split("%").first
-      ALLOWED_IPS.any? { |subnet| subnet.include? ip }
+      #request = Rack::Request.new(env)
+      #return true unless request.ip and !request.ip.strip.empty?
+      #ip = IPAddr.new request.ip.split("%").first
+      #ALLOWED_IPS.any? { |subnet| subnet.include? ip }
+      true
     end
 
     def better_errors_call(env)

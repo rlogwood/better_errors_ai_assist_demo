@@ -18,7 +18,8 @@ module BetterErrors
     end
 
     def use_better_errors?
-      !Rails.env.production? and app.config.consider_all_requests_local
+      #!Rails.env.production? and app.config.consider_all_requests_local
+      true
     end
 
     def app
